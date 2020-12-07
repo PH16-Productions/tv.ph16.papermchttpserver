@@ -1,0 +1,13 @@
+name: Bukkit-Web-Server
+version: ${project.version}
+main: net.englard.shmuelie.bukkitwebserver.Plugin
+api-version: 1.15
+load: STARTUP
+authors: [ Shmuelie ]
+description: Adds an HTTP Server to Bukkit
+author: Shmuelie
+database: false
+commands:
+  web:
+    description: "Start and stop web server"
+    usage: "/web start|stop|port <n>|start <n>"
