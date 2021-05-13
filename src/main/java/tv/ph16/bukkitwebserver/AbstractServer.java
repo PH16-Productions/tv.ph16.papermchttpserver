@@ -1,4 +1,4 @@
-package net.englard.shmuelie.bukkitwebserver;
+package tv.ph16.bukkitwebserver;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;

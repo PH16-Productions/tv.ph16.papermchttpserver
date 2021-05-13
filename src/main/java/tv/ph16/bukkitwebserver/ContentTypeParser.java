@@ -1,4 +1,4 @@
-package net.englard.shmuelie.bukkitwebserver;
+package tv.ph16.bukkitwebserver;
 
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;

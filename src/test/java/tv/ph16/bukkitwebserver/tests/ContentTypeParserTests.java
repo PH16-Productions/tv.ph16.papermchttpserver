@@ -1,6 +1,6 @@
-package net.englard.shmuelie.bukkitwebserver.tests;
+package tv.ph16.bukkitwebserver.tests;
 
-import net.englard.shmuelie.bukkitwebserver.ContentTypeParser;
+import tv.ph16.bukkitwebserver.ContentTypeParser;
 import org.apache.tika.mime.MediaType;
 import org.junit.jupiter.api.Test;
 

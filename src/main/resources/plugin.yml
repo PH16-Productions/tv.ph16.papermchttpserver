@@ -1,6 +1,6 @@
 name: Bukkit-Web-Server
 version: ${project.version}
-main: net.englard.shmuelie.bukkitwebserver.Plugin
+main: tv.ph16.bukkitwebserver.Plugin
 api-version: 1.15
 load: STARTUP
 authors: [ Shmuelie ]

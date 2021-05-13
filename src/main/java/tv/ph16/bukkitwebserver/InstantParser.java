@@ -1,4 +1,4 @@
-package net.englard.shmuelie.bukkitwebserver;
+package tv.ph16.bukkitwebserver;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

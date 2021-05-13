@@ -1,4 +1,4 @@
-package net.englard.shmuelie.bukkitwebserver;
+package tv.ph16.bukkitwebserver;
 
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpHandler;
@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tv.ph16.bukkitwebserver.ApiServer;
+import tv.ph16.bukkitwebserver.WebServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

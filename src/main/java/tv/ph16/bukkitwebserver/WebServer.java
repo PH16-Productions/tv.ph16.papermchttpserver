@@ -1,8 +1,9 @@
-package net.englard.shmuelie.bukkitwebserver;
+package tv.ph16.bukkitwebserver;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tv.ph16.bukkitwebserver.AbstractServer;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
