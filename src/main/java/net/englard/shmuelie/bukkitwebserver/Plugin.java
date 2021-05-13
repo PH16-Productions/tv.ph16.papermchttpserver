@@ -1,10 +1,13 @@
 package net.englard.shmuelie.bukkitwebserver;
 
 import com.sun.net.httpserver.HttpContext;
+import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -120,5 +123,21 @@ public final class Plugin extends JavaPlugin {
             apiContext = null;
             getLogger().info("Server stopped");
         }
+    }
+
+    /**
+     * Add a {@see HttpHandler} for the server.
+     *
+     * @param path the root URI path to associate the context with.
+     * @param handler the handler to invoke for incoming requests.
+     * @return
+     * @exception if path is invalid, or if a context already exists for this path.
+     */
+    @Nullable
+    public HttpContext addHandler(@NotNull String path, @NotNull HttpHandler handler) throws IllegalArgumentException {
+        if (server == null) {
+            return null;
+        }
+        return server.createContext(path, handler);
     }
 }

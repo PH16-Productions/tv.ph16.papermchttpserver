@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.englard.shmuelie</groupId>
     <artifactId>bukkitwebserver</artifactId>
-    <version>2.2.8</version>
+    <version>2.2.9</version>
     <packaging>jar</packaging>
     <name>Bukkit-Web-Server</name>
     <description>Adds an HTTP Server to Bukkit</description>
