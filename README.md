@@ -1,3 +1,3 @@
-# tv.ph16.bukkitwebserver
+# Bukkit Web Server
 
 Adds an HTTP Server to Bukkit
