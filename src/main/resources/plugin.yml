@@ -11,3 +11,6 @@ commands:
   web:
     description: "Start and stop web server"
     usage: "/web start|stop|port <n>|start <n>"
+libraries:
+  - org.apache.tika:tika-core:1.24.1
+  - org.jetbrains:annotations:20.1.0
