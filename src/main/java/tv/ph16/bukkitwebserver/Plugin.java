@@ -1,145 +1,128 @@
 package tv.ph16.bukkitwebserver;
 
-import com.sun.net.httpserver.HttpContext;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.server.handler.gzip.GzipHandler;
+import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tv.ph16.bukkitwebserver.ApiServer;
-import tv.ph16.bukkitwebserver.WebServer;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.logging.Level;
 
+/**
+ * Web server plugin for Bukkit.
+ */
 public final class Plugin extends JavaPlugin {
-    private HttpServer server = null;
-    private int port = 0;
-    private WebServer webServer;
-    private ApiServer apiServer;
-    private HttpContext webContext;
-    private HttpContext apiContext;
+    private final Server server;
+    private final ServerConnector connector;
+    private final GzipHandler gzipHandler;
+    private final ContextHandlerCollection contexts;
+    private final Config config;
 
-    @Override
-    public void onLoad() {
-        getConfig().addDefault("port", 0);
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-        port = getConfig().getInt("port");
-        webServer = new WebServer(this);
-        apiServer = new ApiServer(this);
+    /**
+     * Create a new instance of the {@see Plugin} class.
+     */
+    public Plugin() {
+        server = new Server();
+        connector = new ServerConnector(server);
+        server.addConnector(connector);
+        gzipHandler = new GzipHandler();
+        gzipHandler.setMinGzipSize(1024);
+        gzipHandler.addIncludedMethods("POST");
+        contexts = new ContextHandlerCollection();
+        gzipHandler.setHandler(contexts);
+        server.setHandler(gzipHandler);
+        config = new Config(getConfig());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onLoad() {
+        String staticPath = config.getStaticPath();
+        if (staticPath != null) {
+            try {
+                ResourceHandler handler = new ResourceHandler();
+                handler.setBaseResource(Resource.newResource(staticPath));
+                handler.setDirectoriesListed(false);
+                handler.setWelcomeFiles(new String[]{"index.html","index.htm","index.xhtml"});
+                handler.setAcceptRanges(true);
+                handler.setDirAllowed(false);
+                addHandler("/", handler);
+            } catch (IOException e) {
+            }
+        }
+        addHandler("/api", new ApiServer(this));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onEnable() {
         startWebServer();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDisable() {
         stopWebServer();
     }
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("web") && sender.isOp()) {
-            switch (args.length) {
-                case 1:
-                    if (args[0].equalsIgnoreCase("start")) {
-                        startWebServer();
-                    }
-                    else if (args[0].equalsIgnoreCase("stop")) {
-                        stopWebServer();
-                    }
-                    break;
-                case 2:
-                    if (args[0].equalsIgnoreCase("port")) {
-                        try
-                        {
-                            port = Integer.parseInt(args[1]);
-                            getConfig().set("port", port);
-                            saveConfig();
-                            getLogger().info("Changed port to " + port);
-                            if (server != null) {
-                                stopWebServer();
-                                startWebServer();
-                            }
-                        }
-                        catch (NumberFormatException e) {
-                            getLogger().warning("Invalid port");
-                        }
-                    }
-                    else if (args[0].equalsIgnoreCase("start")) {
-                        try
-                        {
-                            port = Integer.parseInt(args[1]);
-                            getConfig().set("port", port);
-                            saveConfig();
-                            getLogger().info("Changed port to " + port);
-                        }
-                        catch (NumberFormatException e) {
-                            getLogger().warning("Invalid port");
-                        }
-                        startWebServer();
-                    }
-                    break;
-                default:
-                    getLogger().warning("Unknown sub command");
-                    break;
-            }
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * Start the web server if the server is not running.
+     */
     private void startWebServer() {
-        if (server != null) {
+        if (server.isRunning()) {
             return;
         }
-        if (port == 0)
-        {
+        int port = config.getPort();
+        if (port == 0) {
             getLogger().warning("No port set, unable to start server");
             return;
         }
         try {
-            server = HttpServer.create(new InetSocketAddress(port), 0);
-            webContext = server.createContext("/", webServer);
-            apiContext = server.createContext("/api/", apiServer);
-            server.setExecutor(null);
+            connector.setPort(port);
             server.start();
             getLogger().info("Started web server on port '" + port + "'.");
-        } catch (IOException e) {
+        } catch (Exception e) {
             getLogger().log(Level.SEVERE, "Failed to start web server on port '" + port + "'.", e);
         }
     }
 
+    /**
+     * Stops the web server if server is running.
+     */
     private void stopWebServer() {
-        if (server != null) {
-            server.stop(0);
-            server.removeContext(webContext);
-            server.removeContext(apiContext);
-            server = null;
-            webContext = null;
-            apiContext = null;
-            getLogger().info("Server stopped");
+        if (server.isRunning()) {
+            try {
+                server.stop();
+                getLogger().info("Server stopped");
+            } catch (Exception ex) {
+                getLogger().log(Level.SEVERE, "Error stopping server", ex);
+            }
         }
     }
 
     /**
-     * Add a {@see HttpHandler} for the server.
+     * Add a {@see Handler} for the server.
      *
      * @param path the root URI path to associate the context with.
      * @param handler the handler to invoke for incoming requests.
-     * @return
-     * @exception if path is invalid, or if a context already exists for this path.
+     * @return The {@see ContextHandler} created for the handler.
      */
-    @Nullable
-    public HttpContext addHandler(@NotNull String path, @NotNull HttpHandler handler) throws IllegalArgumentException {
-        if (server == null) {
-            return null;
-        }
-        return server.createContext(path, handler);
+    @NotNull
+    public ContextHandler addHandler(@NotNull String path, @NotNull Handler handler) {
+        ContextHandler contextHandler = new ContextHandler(path);
+        contextHandler.setHandler(handler);
+        return contextHandler;
     }
 }
