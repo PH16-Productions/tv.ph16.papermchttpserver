@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 /**
  * HTTP Server that provides information about a Minecraft server.
@@ -39,10 +38,10 @@ final class ApiServer extends AbstractHandler {
         } else if (path.equalsIgnoreCase("player-cap")) {
             responseText = Integer.toString(plugin_.getServer().getMaxPlayers());
         } else {
-            Path parsedPath = Path.of(path);
-            if (parsedPath.getNameCount() == 2 &&
-                parsedPath.getName(0).toString().equals("difficulty")) {
-                World world = plugin_.getServer().getWorld(parsedPath.getName(1).toString());
+            String[] pathParts = path.split("\\|/");
+            if (pathParts.length == 2 &&
+                pathParts[0].equals("difficulty")) {
+                World world = plugin_.getServer().getWorld(pathParts[1]);
                 if (world != null) {
                     responseText = world.getDifficulty().toString();
                 }
