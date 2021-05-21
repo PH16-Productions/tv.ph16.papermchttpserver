@@ -1,8 +1,8 @@
 # Bukkit Web Server
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/ph16-productions/tv.ph16.bukkitwebserver?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/ph16-productions/tv.ph16.bukkitwebserver?style=for-the-badge)
-![API-Version](https://img.shields.io/badge/dynamic/yaml?label=API-Version&query=%24%5B%27api-version%27%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FPH16-Productions%2Ftv.ph16.bukkitwebserver%2Fmain%2Fsrc%2Fmain%2Fresources%2Fplugin.yml&style=for-the-badge)
+![Latest Release on GitHub](https://img.shields.io/github/v/release/ph16-productions/tv.ph16.bukkitwebserver?style=for-the-badge&label=Latest%20(On%20GitHub))
+![MIT License](https://img.shields.io/github/license/ph16-productions/tv.ph16.bukkitwebserver?style=for-the-badge)
+![Minecraft API Version](https://img.shields.io/badge/dynamic/yaml?label=Minecraft%20API%20Version&query=%24%5B%27api-version%27%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FPH16-Productions%2Ftv.ph16.bukkitwebserver%2Fmain%2Fsrc%2Fmain%2Fresources%2Fplugin.yml&style=for-the-badge)
 
 Adds a HTTP Server to Bukkit. By default supports static web content and an API
 for server information.
