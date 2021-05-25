@@ -12,6 +12,7 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Level;
 
 /**
@@ -113,16 +114,50 @@ public final class Plugin extends JavaPlugin {
     }
 
     /**
-     * Add a {@see Handler} for the server.
+     * Gets a {@see ContextHandler} for a given path.
+     * @param path the path to search for.
+     * @return The desired handler or an empty Optional.
+     */
+    @NotNull
+    public Optional<ContextHandler> getHandler(@NotNull String path) {
+        for (Handler existingHandler : contexts.getHandlers()) {
+            if (existingHandler instanceof ContextHandler) {
+                ContextHandler existingContextHandler = (ContextHandler)existingHandler;
+                if (existingContextHandler.getContextPath().equalsIgnoreCase(path)) {
+                    return Optional.of(existingContextHandler);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Add a new {@see Handler} at a path or get the existing one.
      *
-     * @param path the root URI path to associate the context with.
+     * @param path the root URI path to associate the handle with.
      * @param handler the handler to invoke for incoming requests.
      * @return The {@see ContextHandler} created for the handler.
      */
     @NotNull
     public ContextHandler addHandler(@NotNull String path, @NotNull Handler handler) {
+        Optional<ContextHandler> existingHandler = getHandler(path);
+        if (existingHandler.isPresent()) {
+            return existingHandler.get();
+        }
         ContextHandler contextHandler = new ContextHandler(path);
         contextHandler.setHandler(handler);
+        contexts.addHandler(contextHandler);
         return contextHandler;
+    }
+
+    /**
+     * Remove a {@see ContextHandler} for a given path.
+     * @param path the path to remove the handler for.
+     */
+    public void removeHandler(@NotNull String path) {
+        Optional<ContextHandler> existingHandler = getHandler(path);
+        if (existingHandler.isPresent()) {
+            contexts.removeHandler(existingHandler.get());
+        }
     }
 }
