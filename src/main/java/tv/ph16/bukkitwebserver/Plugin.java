@@ -6,12 +6,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.server.handler.gzip.GzipHandler;
-import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -39,27 +36,6 @@ public final class Plugin extends JavaPlugin {
         gzipHandler.setHandler(contexts);
         server.setHandler(gzipHandler);
         config = new Config(getConfig());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onLoad() {
-        String staticPath = config.getStaticPath();
-        if (staticPath != null) {
-            try {
-                ResourceHandler handler = new ResourceHandler();
-                handler.setBaseResource(Resource.newResource(staticPath));
-                handler.setDirectoriesListed(false);
-                handler.setWelcomeFiles(new String[]{"index.html","index.htm","index.xhtml"});
-                handler.setAcceptRanges(true);
-                handler.setDirAllowed(false);
-                addHandler("/", handler);
-            } catch (IOException e) {
-            }
-        }
-        addHandler("/api", new ApiServer(this));
     }
 
     /**

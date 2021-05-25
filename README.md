@@ -5,18 +5,9 @@
 ![Minecraft API Version](https://img.shields.io/badge/dynamic/yaml?label=Minecraft%20API%20Version&query=%24%5B%27api-version%27%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FPH16-Productions%2Ftv.ph16.bukkitwebserver%2Fmain%2Fsrc%2Fmain%2Fresources%2Fplugin.yml&style=for-the-badge)
 ![Java Version](https://img.shields.io/badge/dynamic/xml?label=Java%20Version&query=%2F%2F%2A%5Blocal-name%28%29%20%3D%20%27java.version%27%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FPH16-Productions%2Ftv.ph16.bukkitwebserver%2Fmain%2Fpom.xml&style=for-the-badge)
 
-Adds a HTTP Server to Bukkit. By default supports static web content and an API
-for server information.
+Adds a HTTP Server to Bukkit.
 
 ## Features
-
-### Static Web Server
-
-A HTTP server that serves content from a configured folder.
-
-### API Server
-
-A HTTP server that replies with information about the Minecraft Server.
 
 ### External Servers
 
@@ -31,4 +22,3 @@ Support for other plugins to add their own servers.
 ## Configuration Options
 
 - `port`: the port the server listens on.
-- `staticPath`: the path to the static web content.
