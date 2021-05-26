@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>tv.ph16</groupId>
     <artifactId>papermchttpserver</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.0-beta1</version>
     <packaging>jar</packaging>
     <name>PaperMC HTTP Server</name>
     <description>Adds a HTTP Server to PaperMC. By default no servers are included. Public API provides support for adding, getting, and remove servers.</description>
