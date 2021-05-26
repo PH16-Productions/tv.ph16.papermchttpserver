@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>tv.ph16</groupId>
-    <artifactId>bukkitwebserver</artifactId>
+    <artifactId>papermchttpserver</artifactId>
     <version>3.0.0</version>
     <packaging>jar</packaging>
-    <name>Bukkit Web Server</name>
-    <description>Adds a HTTP Server to Bukkit. By default supports static web content and an API for server information.</description>
+    <name>PaperMC HTTP Server</name>
+    <description>Adds a HTTP Server to PaperMC. By default no servers are included. Public API provides support for adding, getting, and remove servers.</description>
     <inceptionYear>2020</inceptionYear>
-    <url>https://github.com/PH16-Productions/tv.ph16.bukkitwebserver</url>
+    <url>https://github.com/PH16-Productions/tv.ph16.papermchttpserver</url>
     <developers>
         <developer>
             <name>Shmueli Englard</name>
@@ -21,12 +21,12 @@
     </developers>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/PH16-Productions/tv.ph16.bukkitwebserver/issues</url>
+        <url>https://github.com/PH16-Productions/tv.ph16.papermchttpserver/issues</url>
     </issueManagement>
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://github.com/PH16-Productions/tv.ph16.bukkitwebserver/blob/main/LICENSE</url>
+            <url>https://github.com/PH16-Productions/tv.ph16.papermchttpserver/blob/main/LICENSE</url>
         </license>
     </licenses>
     <organization>
@@ -78,15 +78,15 @@
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -109,7 +109,7 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/PH16-Productions/tv.ph16.bukkitwebserver</url>
+            <url>https://maven.pkg.github.com/PH16-Productions/tv.ph16.papermchttpserver</url>
         </repository>
     </distributionManagement>
 </project>

@@ -1,4 +1,4 @@
-package tv.ph16.bukkitwebserver;
+package tv.ph16.papermchttpserver;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.eclipse.jetty.server.Handler;
@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 
 /**
- * Web server plugin for Bukkit.
+ * HTTP Server for PaperMC
  */
 public final class Plugin extends JavaPlugin {
     private final Server server;

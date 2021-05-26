@@ -1,4 +1,4 @@
-package tv.ph16.bukkitwebserver;
+package tv.ph16.papermchttpserver;
 
 import org.bukkit.configuration.Configuration;
 import org.jetbrains.annotations.NotNull;
