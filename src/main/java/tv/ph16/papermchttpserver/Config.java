@@ -1,5 +1,7 @@
 package tv.ph16.papermchttpserver;
 
+import java.util.Optional;
+
 import org.bukkit.configuration.Configuration;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,10 +28,18 @@ final class Config {
     }
 
     /**
-     * Gets the port.
-     * @return the port.
+     * Gets the TCP/IP port to listen on.
+     *
+     * @return the TCP/IP port to listen on if set and valid; otherwise empty.
      */
-    public int getPort() {
-        return config.getInt(PORT_CONFIG);
+    @NotNull
+    public Optional<Integer> getPort() {
+        if (config.contains(PORT_CONFIG)) {
+            int port = config.getInt(PORT_CONFIG, 0);
+            if (port > 0) {
+                return Optional.of(port);
+            }
+        }
+        return Optional.empty();
     }
 }

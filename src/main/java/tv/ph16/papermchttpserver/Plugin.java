@@ -61,17 +61,17 @@ public final class Plugin extends JavaPlugin {
         if (server.isRunning()) {
             return;
         }
-        int port = config.getPort();
-        if (port == 0) {
+        Optional<Integer> port = config.getPort();
+        if (!port.isPresent()) {
             getLogger().warning("No port set, unable to start server");
             return;
         }
         try {
-            connector.setPort(port);
+            connector.setPort(port.get());
             server.start();
-            getLogger().info("Started web server on port '" + port + "'.");
+            getLogger().info("Started web server on port '" + port.get() + "'.");
         } catch (Exception e) {
-            getLogger().log(Level.SEVERE, "Failed to start web server on port '" + port + "'.", e);
+            getLogger().log(Level.SEVERE, "Failed to start web server on port '" + port.get() + "'.", e);
         }
     }
 
