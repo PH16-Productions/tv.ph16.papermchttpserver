@@ -13,7 +13,7 @@ final class Config {
     private static final String PORT_CONFIG = "port";
 
     /**
-     * Plugin conversation.
+     * Plugin configuration.
      */
     private final Configuration config;
 
