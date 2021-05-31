@@ -43,21 +43,6 @@ public final class Plugin extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        startWebServer();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onDisable() {
-        stopWebServer();
-    }
-
-    /**
-     * Start the web server if the server is not running.
-     */
-    private void startWebServer() {
         if (server.isRunning()) {
             return;
         }
@@ -76,9 +61,10 @@ public final class Plugin extends JavaPlugin {
     }
 
     /**
-     * Stops the web server if server is running.
+     * {@inheritDoc}
      */
-    private void stopWebServer() {
+    @Override
+    public void onDisable() {
         if (server.isRunning()) {
             try {
                 server.stop();
