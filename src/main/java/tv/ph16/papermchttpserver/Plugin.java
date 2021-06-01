@@ -23,7 +23,7 @@ public final class Plugin extends JavaPlugin {
     private final Config config;
 
     /**
-     * Create a new instance of the {@see Plugin} class.
+     * Create a new instance of the {@link Plugin} class.
      */
     public Plugin() {
         server = new Server();
@@ -76,7 +76,7 @@ public final class Plugin extends JavaPlugin {
     }
 
     /**
-     * Gets a {@see ContextHandler} for a given path.
+     * Gets a {@link ContextHandler} for a given path.
      * @param path the path to search for.
      * @return The desired handler or an empty Optional.
      */
@@ -94,11 +94,11 @@ public final class Plugin extends JavaPlugin {
     }
 
     /**
-     * Add a new {@see Handler} at a path or get the existing one.
+     * Add a new {@link Handler} at a path or get the existing one.
      *
      * @param path the root URI path to associate the handle with.
      * @param handler the handler to invoke for incoming requests.
-     * @return The {@see ContextHandler} created for the handler.
+     * @return The {@link ContextHandler} created for the handler.
      */
     @NotNull
     public ContextHandler addHandler(@NotNull String path, @NotNull Handler handler) {
@@ -113,7 +113,7 @@ public final class Plugin extends JavaPlugin {
     }
 
     /**
-     * Remove a {@see ContextHandler} for a given path.
+     * Remove a {@link ContextHandler} for a given path.
      * @param path the path to remove the handler for.
      */
     public void removeHandler(@NotNull String path) {
