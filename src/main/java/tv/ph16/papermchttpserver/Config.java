@@ -2,29 +2,26 @@ package tv.ph16.papermchttpserver;
 
 import java.util.Optional;
 
-import org.bukkit.configuration.Configuration;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+
+import tv.ph16.paperplugin.ConfigurationManager;
 
 /**
  * Configuration information for the server.
  */
-final class Config {
+final class Config extends ConfigurationManager {
     /**
      * Name of the port configuration.
      */
     private static final String PORT_CONFIG = "port";
 
     /**
-     * Plugin configuration.
+     * Create a new instance of the {@link Config} class.
+     * @param plugin The plugin to manage configuration for.
      */
-    private final Configuration config;
-
-    /**
-     * Creates a new instance of the {@see Config} class.
-     * @param config the plugin configuration.
-     */
-    public Config(@NotNull Configuration config) {
-        this.config = config;
+    public Config(@NotNull Plugin plugin) {
+        super(plugin);
     }
 
     /**
@@ -34,12 +31,11 @@ final class Config {
      */
     @NotNull
     public Optional<Integer> getPort() {
-        if (config.contains(PORT_CONFIG)) {
-            int port = config.getInt(PORT_CONFIG, 0);
+        return getInt(PORT_CONFIG).flatMap(port -> {
             if (port > 0) {
                 return Optional.of(port);
             }
-        }
-        return Optional.empty();
+            return Optional.empty();
+        });
     }
 }

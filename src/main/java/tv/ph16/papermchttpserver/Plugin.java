@@ -35,7 +35,7 @@ public final class Plugin extends JavaPlugin {
         contexts = new ContextHandlerCollection();
         gzipHandler.setHandler(contexts);
         server.setHandler(gzipHandler);
-        config = new Config(getConfig());
+        config = new Config(this);
     }
 
     /**
