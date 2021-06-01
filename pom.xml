@@ -81,6 +81,13 @@
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/PH16-Productions/*</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -104,6 +111,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <version>2.0.0-alpha1</version>
+          </dependency>
+          <dependency>
+            <groupId>tv.ph16</groupId>
+            <artifactId>paperplugin</artifactId>
+            <version>1.0.1</version>
           </dependency>
     </dependencies>
     <distributionManagement>
